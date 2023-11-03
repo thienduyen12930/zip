@@ -1,57 +1,52 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package View;
+package view;
 
-
-import common.Library;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class Menu<T> {
-    protected String title;
-    protected ArrayList<T> mChon;
-    Library l = new Library();
 
-    public Menu() {
-        mChon = new ArrayList<>();
-    }
+    protected String title;
+    protected ArrayList mChoice;
 
     public Menu(String td, String[] mc) {
         title = td;
-        mChon = new ArrayList<>();
+        mChoice = new ArrayList<>();
         for (String s : mc) {
-            mChon.add((T) s);
+            mChoice.add((T) s);
         }
     }
 
-    //-------------------------------------------
-    public void display() {
+    public void disPlay() {
         System.out.println(title);
-        System.out.println("--------------------------------");
-        for (int i = 0; i < mChon.size(); i++) {
-            System.out.println((i + 1) + "." + mChon.get(i));
+        System.out.println("===========================");
+        for (int i = 0; i < mChoice.size(); i++) {
+            System.out.println("|"+(i + 1) + "." + mChoice.get(i)+"|");
+
         }
-        System.out.println("--------------------------------");
+        System.out.println("===========================");
+
     }
-//-------------------------------------------
 
     public int getSelected() {
-        display();
-        return l.getInt("Enter your choice", 1, mChon.size());
+        disPlay();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your choice :");
+        return scanner.nextInt();
+
     }
-//-------------------------------------------
 
     public abstract void execute(int n);
-//-------------------------------------------
 
-    public void run() {
+    public void runMenu() {
         while (true) {
             int n = getSelected();
             execute(n);
-            if (n > mChon.size()) {
+            if (n > mChoice.size()) {
                 break;
             }
+
         }
+
     }
+
 }
